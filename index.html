@@ -15,8 +15,7 @@ user-scalable=no">
 <style>
 
 /* =========================
-   VELOCITY X
-   DAYTIME CINEMATIC INTRO
+   VELOCITY X — CINEMATIC INTRO
    ========================= */
 
 *{
@@ -25,17 +24,16 @@ user-scalable=no">
     box-sizing:border-box;
 }
 
-html,
-body{
+html,body{
     width:100%;
     height:100%;
     overflow:hidden;
-    background:#111;
+    background:#050607;
     font-family:Arial,Helvetica,sans-serif;
 }
 
 /* =========================
-   LANDSCAPE LOCK SCREEN
+   LANDSCAPE WARNING
    ========================= */
 
 #portrait{
@@ -44,26 +42,24 @@ body{
     z-index:99999;
 
     display:none;
-
     align-items:center;
     justify-content:center;
 
-    background:#080a0c;
+    background:#050607;
     color:white;
-
     text-align:center;
 }
 
 .rotate-content{
-    letter-spacing:5px;
     font-size:14px;
+    letter-spacing:5px;
 }
 
 .rotate-small{
     margin-top:12px;
     font-size:10px;
     letter-spacing:3px;
-    color:#87929a;
+    color:#9aa4aa;
 }
 
 @media (orientation:portrait){
@@ -79,67 +75,51 @@ body{
 }
 
 /* =========================
-   CINEMATIC SCREEN
+   MAIN CINEMATIC SCREEN
    ========================= */
 
 #cinematic{
     position:fixed;
     inset:0;
-
     overflow:hidden;
 
-    background:
-    linear-gradient(
-        135deg,
-        #9fc6df,
-        #e9d6bd 48%,
-        #77736d
-    );
+    background:#111;
 }
 
 /* =========================
-   REAL IMAGE AREA
+   REAL CINEMATIC IMAGE
    ========================= */
 
 .scene{
     position:absolute;
     inset:0;
 
-    /*
-    PLACE YOUR REALISTIC
-    CINEMATIC IMAGE HERE
-
-    Example:
-
-    background-image:url("assets/loading-scene.jpg");
-
-    The image should contain:
-    - daytime setting
-    - large sports car close to camera
-    - woman sitting on the car
-    - realistic people/environment
-    */
-
     background-image:
-    linear-gradient(
-        90deg,
-        rgba(5,10,15,.25),
-        transparent 55%,
-        rgba(5,10,15,.35)
-    ),
-    linear-gradient(
-        180deg,
-        rgba(255,255,255,.08),
-        rgba(0,0,0,.35)
-    );
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.35),
+            transparent 55%,
+            rgba(0,0,0,.20)
+        ),
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.05),
+            rgba(0,0,0,.30)
+        ),
+        url("assets/loading-scene.jpg");
 
     background-size:cover;
-    background-position:center;
+    background-position:center center;
+
+    transform:scale(1.03);
+
+    animation:
+        cinematicZoom 12s
+        ease-out forwards;
 }
 
 /* =========================
-   TEMPORARY CINEMATIC
-   BACKGROUND
+   CINEMATIC LIGHT
    ========================= */
 
 .daylight{
@@ -147,505 +127,47 @@ body{
     inset:0;
 
     background:
-    radial-gradient(
-        ellipse at 65% 20%,
-        rgba(255,255,255,.75),
-        transparent 32%
-    );
+        radial-gradient(
+            ellipse at 72% 18%,
+            rgba(255,255,255,.22),
+            transparent 30%
+        );
 
     pointer-events:none;
 }
 
 /* =========================
-   STREET
-   ========================= */
-
-.street{
-    position:absolute;
-
-    left:-5%;
-    right:-5%;
-    bottom:-15%;
-
-    height:48%;
-
-    transform:
-    perspective(700px)
-    rotateX(52deg);
-
-    background:
-    linear-gradient(
-        180deg,
-        #8d8b87,
-        #353638
-    );
-
-    box-shadow:
-    0 -15px 45px rgba(0,0,0,.22);
-}
-
-/* road markings */
-
-.street:after{
-    content:"";
-
-    position:absolute;
-
-    left:50%;
-    top:0;
-
-    width:5px;
-    height:100%;
-
-    transform:translateX(-50%);
-
-    background:
-    repeating-linear-gradient(
-        180deg,
-        rgba(255,255,255,.7) 0 70px,
-        transparent 70px 135px
-    );
-}
-
-/* =========================
-   LARGE CAR PLACEHOLDER
-   ========================= */
-
-.car{
-    position:absolute;
-
-    width:760px;
-    height:330px;
-
-    right:-170px;
-    bottom:8%;
-
-    transform:
-    rotate(-2deg);
-
-    filter:
-    drop-shadow(
-        -25px 30px 30px
-        rgba(0,0,0,.42)
-    );
-}
-
-/* body */
-
-.car-body{
-    position:absolute;
-
-    left:0;
-    bottom:45px;
-
-    width:100%;
-    height:180px;
-
-    border-radius:
-    170px 70px 35px 45px;
-
-    background:
-    linear-gradient(
-        150deg,
-        #dfe5e8 0%,
-        #8d969d 18%,
-        #272c31 52%,
-        #080a0c 100%
-    );
-
-    box-shadow:
-    inset 0 8px 15px
-    rgba(255,255,255,.35),
-
-    inset 0 -20px 30px
-    rgba(0,0,0,.6);
-}
-
-/* roof */
-
-.car-roof{
-    position:absolute;
-
-    left:205px;
-    top:5px;
-
-    width:390px;
-    height:145px;
-
-    clip-path:
-    polygon(
-        5% 100%,
-        25% 5%,
-        75% 5%,
-        100% 100%
-    );
-
-    background:
-    linear-gradient(
-        135deg,
-        #aeb8be,
-        #20262b 45%,
-        #050608
-    );
-}
-
-/* glass */
-
-.car-glass{
-    position:absolute;
-
-    left:232px;
-    top:23px;
-
-    width:325px;
-    height:105px;
-
-    clip-path:
-    polygon(
-        9% 100%,
-        24% 0,
-        68% 0,
-        94% 100%
-    );
-
-    background:
-    linear-gradient(
-        135deg,
-        #8ba9b7,
-        #263c47,
-        #071016
-    );
-
-    box-shadow:
-    inset 0 0 25px
-    rgba(255,255,255,.15);
-}
-
-/* front light */
-
-.car-light{
-    position:absolute;
-
-    left:20px;
-    bottom:145px;
-
-    width:125px;
-    height:25px;
-
-    transform:skewX(-20deg);
-
-    border-radius:50%;
-
-    background:
-    linear-gradient(
-        90deg,
-        white,
-        #cdefff,
-        transparent
-    );
-
-    box-shadow:
-    0 0 20px white,
-    0 0 55px rgba(180,225,255,.8);
-}
-
-/* wheel */
-
-.wheel{
-    position:absolute;
-
-    bottom:15px;
-
-    width:105px;
-    height:105px;
-
-    border-radius:50%;
-
-    background:
-    radial-gradient(
-        circle,
-        #6b7379 0 12%,
-        #171b1e 13% 35%,
-        #050607 37% 65%,
-        #111 67%
-    );
-
-    border:8px solid #090a0b;
-
-    box-shadow:
-    0 0 0 3px #555;
-}
-
-.wheel-front{
-    left:85px;
-}
-
-.wheel-back{
-    right:85px;
-}
-
-/* =========================
-   WOMAN
-   ========================= */
-
-.woman{
-    position:absolute;
-
-    right:23%;
-    bottom:28%;
-
-    width:170px;
-    height:250px;
-
-    z-index:8;
-}
-
-/*
-This is deliberately a placeholder
-until we add the photorealistic
-character image/model.
-*/
-
-.woman-head{
-    position:absolute;
-
-    top:0;
-    left:55px;
-
-    width:58px;
-    height:70px;
-
-    border-radius:
-    48% 48% 45% 45%;
-
-    background:
-    linear-gradient(
-        135deg,
-        #c58e6e,
-        #7c503c
-    );
-
-    box-shadow:
-    0 5px 10px
-    rgba(0,0,0,.3);
-}
-
-.woman-hair{
-    position:absolute;
-
-    top:-18px;
-    left:35px;
-
-    width:95px;
-    height:115px;
-
-    border-radius:
-    50% 50% 45% 45%;
-
-    background:
-    linear-gradient(
-        135deg,
-        #17110e,
-        #3a2418,
-        #0b0908
-    );
-}
-
-.woman-body{
-    position:absolute;
-
-    left:38px;
-    top:65px;
-
-    width:105px;
-    height:150px;
-
-    border-radius:
-    45px 45px 20px 20px;
-
-    background:
-    linear-gradient(
-        100deg,
-        #20252a,
-        #69737a,
-        #16191c
-    );
-
-    box-shadow:
-    0 12px 20px
-    rgba(0,0,0,.3);
-}
-
-/* =========================
-   BACKGROUND PEOPLE
-   ========================= */
-
-.background-person{
-    position:absolute;
-
-    bottom:31%;
-
-    width:40px;
-    height:115px;
-
-    opacity:.65;
-
-    filter:blur(.5px);
-}
-
-.background-person:before{
-    content:"";
-
-    position:absolute;
-
-    top:0;
-    left:10px;
-
-    width:20px;
-    height:20px;
-
-    border-radius:50%;
-
-    background:#3d302a;
-}
-
-.background-person:after{
-    content:"";
-
-    position:absolute;
-
-    top:20px;
-    left:4px;
-
-    width:32px;
-    height:90px;
-
-    border-radius:
-    15px 15px 5px 5px;
-
-    background:
-    linear-gradient(
-        90deg,
-        #171a1d,
-        #52575b,
-        #111315
-    );
-}
-
-.person1{
-    left:8%;
-    transform:scale(.8);
-}
-
-.person2{
-    left:17%;
-    transform:scale(1.15);
-}
-
-.person3{
-    right:15%;
-    transform:scale(.75);
-}
-
-.person4{
-    right:7%;
-    transform:scale(1);
-}
-
-/* =========================
-   LIGHT / LENS
-   ========================= */
-
-.lens{
-    position:absolute;
-    inset:0;
-
-    background:
-    radial-gradient(
-        ellipse at 75% 25%,
-        rgba(255,255,255,.25),
-        transparent 25%
-    );
-
-    pointer-events:none;
-}
-
-/* =========================
-   TITLE
+   BRAND
    ========================= */
 
 .brand{
     position:absolute;
 
-    top:8%;
-    left:7%;
+    top:7%;
+    left:6%;
 
     color:white;
 
     font-size:12px;
+    font-weight:bold;
 
     letter-spacing:8px;
 
-    font-weight:bold;
-
     text-shadow:
-    0 2px 8px rgba(0,0,0,.5);
+        0 2px 12px rgba(0,0,0,.7);
+
+    z-index:20;
 }
+
+/* =========================
+   GAME TITLE
+   ========================= */
 
 .game-title{
     position:absolute;
 
-    top:13%;
+    top:12%;
     left:50%;
-
-    transform:translateX(-50%);
-
-    text-align:center;
-
-    color:white;
-
-    text-shadow:
-    0 4px 25px
-    rgba(0,0,0,.55);
-}
-
-.game-title h1{
-    font-size:
-    clamp(35px,5vw,75px);
-
-    font-style:italic;
-
-    letter-spacing:
-    clamp(5px,1vw,14px);
-
-    font-weight:900;
-}
-
-.game-title span{
-    color:#dcefff;
-}
-
-.game-title p{
-    margin-top:7px;
-
-    font-size:10px;
-
-    letter-spacing:7px;
-
-    opacity:.8;
-}
-
-/* =========================
-   LOADING
-   ========================= */
-
-.loading{
-    position:absolute;
-
-    left:50%;
-    bottom:7%;
-
-    width:min(380px,45vw);
 
     transform:translateX(-50%);
 
@@ -654,70 +176,157 @@ character image/model.
     color:white;
 
     z-index:20;
+
+    text-shadow:
+        0 4px 25px rgba(0,0,0,.7);
+}
+
+.game-title h1{
+
+    font-size:
+        clamp(36px,6vw,82px);
+
+    font-style:italic;
+
+    font-weight:900;
+
+    letter-spacing:
+        clamp(5px,1vw,14px);
+
+    white-space:nowrap;
+}
+
+.game-title h1 span{
+    color:#d9ecff;
+}
+
+.game-title p{
+
+    margin-top:8px;
+
+    font-size:10px;
+
+    letter-spacing:7px;
+
+    opacity:.85;
+}
+
+/* =========================
+   LOADING PANEL
+   ========================= */
+
+.loading{
+
+    position:absolute;
+
+    left:50%;
+    bottom:7%;
+
+    width:min(400px,48vw);
+
+    transform:translateX(-50%);
+
+    text-align:center;
+
+    color:white;
+
+    z-index:30;
+
+    text-shadow:
+        0 2px 10px rgba(0,0,0,.8);
 }
 
 .loading-label{
-    font-size:10px;
-
-    letter-spacing:5px;
 
     margin-bottom:11px;
 
-    text-shadow:
-    0 2px 8px black;
+    font-size:10px;
+
+    letter-spacing:5px;
 }
 
 .loading-track{
+
     width:100%;
     height:3px;
 
     background:
-    rgba(255,255,255,.25);
+        rgba(255,255,255,.28);
 
     overflow:hidden;
+
+    backdrop-filter:blur(5px);
 }
 
 .loading-progress{
+
     width:0%;
     height:100%;
 
     background:white;
 
     box-shadow:
-    0 0 15px white;
+        0 0 18px rgba(255,255,255,.9);
 
     animation:
-    progress 9s
-    cubic-bezier(.2,.7,.2,1)
-    forwards;
+        progress 9s
+        cubic-bezier(.2,.7,.2,1)
+        forwards;
 }
 
 .loading-status{
+
     margin-top:9px;
 
     font-size:9px;
 
     letter-spacing:3px;
 
-    color:#e4ebef;
+    color:#e5edf1;
 }
 
 /* =========================
-   FADE
+   CINEMATIC VIGNETTE
    ========================= */
 
-.fade{
+.lens{
+
     position:absolute;
     inset:0;
 
-    background:#050607;
+    pointer-events:none;
+
+    background:
+
+        radial-gradient(
+            ellipse at center,
+            transparent 45%,
+            rgba(0,0,0,.25) 75%,
+            rgba(0,0,0,.55) 100%
+        );
+
+    z-index:15;
+}
+
+/* =========================
+   FADE TO GAME
+   ========================= */
+
+.fade{
+
+    position:absolute;
+    inset:0;
+
+    background:#030405;
 
     opacity:0;
 
     pointer-events:none;
 
     animation:
-    fadeIn 1.5s ease 9s forwards;
+        fadeIn 1.5s ease 9s forwards;
+
+    z-index:50;
 }
 
 /* =========================
@@ -731,7 +340,7 @@ character image/model.
     }
 
     20%{
-        width:19%;
+        width:18%;
     }
 
     45%{
@@ -739,11 +348,11 @@ character image/model.
     }
 
     70%{
-        width:67%;
+        width:68%;
     }
 
     88%{
-        width:86%;
+        width:87%;
     }
 
     100%{
@@ -755,6 +364,17 @@ character image/model.
 
     to{
         opacity:1;
+    }
+}
+
+@keyframes cinematicZoom{
+
+    from{
+        transform:scale(1.03);
+    }
+
+    to{
+        transform:scale(1.08);
     }
 }
 
