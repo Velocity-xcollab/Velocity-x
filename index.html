@@ -233,6 +233,42 @@ html,body{
 </style>
 </head>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<style>
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+#game {
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Landscape game layout */
+@media (orientation: portrait) {
+    body::before {
+        content: "PLEASE ROTATE YOUR DEVICE";
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: #050505;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 2px;
+    }
+}
+</style>
+      
 <body>
 
 <!-- =========================
