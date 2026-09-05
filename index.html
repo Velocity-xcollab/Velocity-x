@@ -312,14 +312,1418 @@ setTimeout(() => {
 
     loading.style.opacity = "0";
 
-    /*
-      CODE 2 WILL APPEAR HERE
-      AFTER WE BUILD IT.
-    */
+    <!-- =========================
+     VELOCITY X LOCATION SCREEN
+     ========================= -->
 
-},8000);
+<section id="location-screen">
+
+    <div class="location-bg"></div>
+    <div class="location-overlay"></div>
+
+    <div class="location-content">
+
+        <div class="vx-small">VX STUDIOS</div>
+
+        <h1>CHOOSE YOUR<br><span>LOCATION</span></h1>
+
+        <p class="location-subtitle">
+            SELECT YOUR HOME REGION
+        </p>
+
+        <div class="location-grid">
+
+            <button class="location-card" data-location="Africa">
+                <div class="location-icon">AF</div>
+                <strong>AFRICA</strong>
+                <small>CONTINENT</small>
+            </button>
+
+            <button class="location-card" data-location="Europe">
+                <div class="location-icon">EU</div>
+                <strong>EUROPE</strong>
+                <small>CONTINENT</small>
+            </button>
+
+            <button class="location-card" data-location="Asia">
+                <div class="location-icon">AS</div>
+                <strong>ASIA</strong>
+                <small>CONTINENT</small>
+            </button>
+
+            <button class="location-card" data-location="North America">
+                <div class="location-icon">NA</div>
+                <strong>NORTH AMERICA</strong>
+                <small>CONTINENT</small>
+            </button>
+
+            <button class="location-card" data-location="South America">
+                <div class="location-icon">SA</div>
+                <strong>SOUTH AMERICA</strong>
+                <small>CONTINENT</small>
+            </button>
+
+            <button class="location-card" data-location="Oceania">
+                <div class="location-icon">OC</div>
+                <strong>OCEANIA</strong>
+                <small>CONTINENT</small>
+            </button>
+
+        </div>
+
+        <button id="location-next" disabled>
+            CONTINUE
+            <span>→</span>
+        </button>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* =========================
+   LOCATION SCREEN
+   ========================= */
+
+#location-screen{
+    position:fixed;
+    inset:0;
+
+    display:none;
+
+    overflow:auto;
+
+    background:#080a0c;
+
+    color:white;
+
+    z-index:100;
+}
+
+.location-bg{
+    position:fixed;
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle at 50% 20%,
+            #343a3e 0%,
+            #15191c 38%,
+            #050607 100%
+        );
+
+    transform:scale(1.05);
+
+    animation:locationZoom 12s ease-out forwards;
+}
+
+.location-overlay{
+    position:fixed;
+    inset:0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.15),
+            rgba(0,0,0,.55)
+        );
+}
+
+.location-content{
+    position:relative;
+    z-index:2;
+
+    min-height:100%;
+
+    width:min(900px,92%);
+
+    margin:auto;
+
+    padding:
+        55px 0
+        35px;
+
+    text-align:center;
+}
+
+.vx-small{
+    font-size:9px;
+
+    letter-spacing:7px;
+
+    opacity:.55;
+
+    margin-bottom:18px;
+}
+
+.location-content h1{
+    font-size:
+        clamp(32px,7vw,65px);
+
+    line-height:.95;
+
+    font-style:italic;
+
+    font-weight:900;
+
+    letter-spacing:3px;
+}
+
+.location-content h1 span{
+    opacity:.45;
+}
+
+.location-subtitle{
+    margin-top:15px;
+
+    font-size:9px;
+
+    letter-spacing:4px;
+
+    opacity:.55;
+}
+
+/* =========================
+   LOCATION CARDS
+   ========================= */
+
+.location-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:14px;
+
+    margin-top:38px;
+}
+
+.location-card{
+    min-height:125px;
+
+    border:1px solid
+        rgba(255,255,255,.14);
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.09),
+            rgba(255,255,255,.025)
+        );
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease;
+
+    padding:20px 10px;
+}
+
+.location-card:hover{
+    transform:translateY(-5px);
+
+    border-color:
+        rgba(255,255,255,.65);
+
+    background:
+        rgba(255,255,255,.12);
+}
+
+.location-card.selected{
+    border-color:white;
+
+    background:
+        rgba(255,255,255,.16);
+
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.35);
+}
+
+.location-icon{
+    width:46px;
+    height:46px;
+
+    margin:0 auto 13px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    border:1px solid
+        rgba(255,255,255,.35);
+
+    font-size:11px;
+
+    font-weight:bold;
+
+    letter-spacing:1px;
+}
+
+.location-card strong{
+    display:block;
+
+    font-size:11px;
+
+    letter-spacing:2px;
+}
+
+.location-card small{
+    display:block;
+
+    margin-top:6px;
+
+    font-size:7px;
+
+    letter-spacing:2px;
+
+    opacity:.45;
+}
+
+/* =========================
+   CONTINUE
+   ========================= */
+
+#location-next{
+    margin-top:32px;
+
+    width:190px;
+
+    height:52px;
+
+    border:1px solid
+        rgba(255,255,255,.4);
+
+    border-radius:5px;
+
+    background:white;
+
+    color:#080a0c;
+
+    font-size:10px;
+
+    font-weight:bold;
+
+    letter-spacing:3px;
+
+    cursor:pointer;
+
+    opacity:.35;
+
+    transition:.25s;
+}
+
+#location-next:not(:disabled){
+    opacity:1;
+}
+
+#location-next:not(:disabled):hover{
+    transform:scale(1.04);
+}
+
+#location-next span{
+    margin-left:15px;
+
+    font-size:16px;
+}
+
+/* =========================
+   ANIMATION
+   ========================= */
+
+@keyframes locationZoom{
+
+    from{
+        transform:scale(1.08);
+    }
+
+    to{
+        transform:scale(1);
+    }
+
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media(max-width:650px){
+
+    .location-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap:10px;
+    }
+
+    .location-card{
+        min-height:110px;
+    }
+
+}
+
+@media(max-width:380px){
+
+    .location-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .location-card strong{
+        font-size:9px;
+    }
+
+}
+
+</style>
+
+
+<script>
+
+/* =========================
+   LOCATION LOGIC
+   ========================= */
+
+const locationScreen =
+    document.getElementById("location-screen");
+
+const locationCards =
+    document.querySelectorAll(".location-card");
+
+const locationNext =
+    document.getElementById("location-next");
+
+let selectedLocation = null;
+
+
+/* =========================
+   SELECT LOCATION
+   ========================= */
+
+locationCards.forEach(card => {
+
+    card.addEventListener("click", () => {
+
+        locationCards.forEach(item => {
+            item.classList.remove("selected");
+        });
+
+        card.classList.add("selected");
+
+        selectedLocation =
+            card.dataset.location;
+
+        locationNext.disabled = false;
+
+    });
+
+});
+
+
+/* =========================
+   CONTINUE
+   ========================= */
+
+locationNext.addEventListener("click", () => {
+
+    if(!selectedLocation) return;
+
+    localStorage.setItem(
+        "vxLocation",
+        selectedLocation
+    );
+
+    locationScreen.style.opacity = "0";
+
+    locationScreen.style.transition =
+        "opacity .6s ease";
+
+    setTimeout(() => {
+
+        locationScreen.style.display =
+            "none";
+
+        <!-- =========================
+     VELOCITY X CAR SELECTION
+     ========================= -->
+
+<section id="cars-screen">
+
+    <div class="cars-bg"></div>
+    <div class="cars-dark"></div>
+
+    <div class="cars-header">
+        <div>
+            <small>VX STUDIOS</small>
+            <h1>SELECT YOUR <span>CAR</span></h1>
+        </div>
+
+        <div class="garage-location">
+            <small>LOCATION</small>
+            <strong id="chosen-location">---</strong>
+        </div>
+    </div>
+
+    <div class="car-showcase">
+
+        <button class="car-arrow" id="car-prev">‹</button>
+
+        <div class="car-image-area">
+
+            <!-- Temporary visual car -->
+            <div class="car-glow"></div>
+
+            <div class="car-placeholder">
+                <div class="car-body"></div>
+                <div class="car-window"></div>
+                <div class="car-wheel left"></div>
+                <div class="car-wheel right"></div>
+            </div>
+
+            <div class="car-number" id="car-number">
+                01 / 06
+            </div>
+
+        </div>
+
+        <button class="car-arrow" id="car-next">›</button>
+
+    </div>
+
+    <div class="car-information">
+
+        <div class="car-status" id="car-status">
+            UNLOCKED
+        </div>
+
+        <h2 id="car-name">
+            TOYOTA GR86
+        </h2>
+
+        <p id="car-type">
+            SPORTS COUPE
+        </p>
+
+        <div class="stats">
+
+            <div>
+                <span>TOP SPEED</span>
+                <strong id="car-speed">226</strong>
+                <small>KM/H</small>
+            </div>
+
+            <div>
+                <span>ACCELERATION</span>
+                <strong id="car-accel">6.1</strong>
+                <small>SEC</small>
+            </div>
+
+            <div>
+                <span>HANDLING</span>
+                <strong id="car-handling">72</strong>
+                <small>%</small>
+            </div>
+
+            <div>
+                <span>NITRO</span>
+                <strong id="car-nitro">45</strong>
+                <small>%</small>
+            </div>
+
+        </div>
+
+        <button id="select-car">
+            SELECT CAR
+        </button>
+
+    </div>
+
+    <div class="car-dots" id="car-dots"></div>
+
+</section>
+
+
+<style>
+
+/* =========================
+   CAR SCREEN
+   ========================= */
+
+#cars-screen{
+    position:fixed;
+    inset:0;
+
+    display:none;
+
+    overflow:hidden;
+
+    background:#090b0d;
+
+    color:white;
+
+    z-index:200;
+}
+
+.cars-bg{
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 42%,
+            #444b50 0%,
+            #202528 35%,
+            #090b0d 78%
+        );
+}
+
+.cars-dark{
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.15),
+            rgba(0,0,0,.7)
+        );
+}
+
+/* =========================
+   HEADER
+   ========================= */
+
+.cars-header{
+    position:absolute;
+
+    top:5%;
+    left:5%;
+    right:5%;
+
+    z-index:5;
+
+    display:flex;
+
+    justify-content:space-between;
+    align-items:flex-start;
+}
+
+.cars-header small{
+    font-size:8px;
+    letter-spacing:3px;
+    opacity:.45;
+}
+
+.cars-header h1{
+    margin-top:8px;
+
+    font-size:
+        clamp(24px,5vw,48px);
+
+    font-style:italic;
+
+    letter-spacing:2px;
+}
+
+.cars-header h1 span{
+    opacity:.4;
+}
+
+.garage-location{
+    text-align:right;
+}
+
+.garage-location strong{
+    display:block;
+
+    margin-top:7px;
+
+    font-size:11px;
+
+    letter-spacing:2px;
+}
+
+/* =========================
+   SHOWCASE
+   ========================= */
+
+.car-showcase{
+    position:absolute;
+
+    top:19%;
+    left:0;
+    right:0;
+
+    height:42%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:20px;
+
+    z-index:3;
+}
+
+.car-image-area{
+    position:relative;
+
+    width:min(650px,72vw);
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+}
+
+.car-glow{
+    position:absolute;
+
+    width:65%;
+    height:25%;
+
+    bottom:18%;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.12);
+
+    filter:blur(25px);
+}
+
+/* =========================
+   TEMPORARY CAR
+   ========================= */
+
+.car-placeholder{
+    position:relative;
+
+    width:min(470px,70vw);
+    height:210px;
+
+    transform:
+        perspective(700px)
+        rotateX(5deg)
+        rotateY(-5deg);
+}
+
+.car-body{
+    position:absolute;
+
+    left:5%;
+    bottom:25px;
+
+    width:90%;
+    height:95px;
+
+    border-radius:
+        45px 55px 20px 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f1f3f4,
+            #aab1b5 35%,
+            #454b4f 70%,
+            #111416
+        );
+
+    box-shadow:
+        0 25px 35px
+        rgba(0,0,0,.65);
+}
+
+.car-window{
+    position:absolute;
+
+    left:28%;
+    top:28px;
+
+    width:44%;
+    height:70px;
+
+    clip-path:
+        polygon(
+            8% 100%,
+            20% 0,
+            78% 0,
+            94% 100%
+        );
+
+    background:
+        linear-gradient(
+            135deg,
+            #829ca7,
+            #26383f 55%,
+            #070b0d
+        );
+}
+
+.car-wheel{
+    position:absolute;
+
+    bottom:5px;
+
+    width:65px;
+    height:65px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #a0a4a5 0 12%,
+            #25292b 13% 38%,
+            #050607 40% 70%,
+            #191c1e 72%
+        );
+
+    border:6px solid #050607;
+}
+
+.car-wheel.left{
+    left:14%;
+}
+
+.car-wheel.right{
+    right:14%;
+}
+
+/* =========================
+   ARROWS
+   ========================= */
+
+.car-arrow{
+    width:50px;
+    height:70px;
+
+    border:1px solid
+        rgba(255,255,255,.2);
+
+    border-radius:8px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    color:white;
+
+    font-size:45px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    z-index:10;
+}
+
+.car-arrow:hover{
+    background:
+        rgba(255,255,255,.14);
+}
+
+/* =========================
+   NUMBER
+   ========================= */
+
+.car-number{
+    position:absolute;
+
+    bottom:4%;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    font-size:9px;
+
+    letter-spacing:4px;
+
+    opacity:.45;
+}
+
+/* =========================
+   INFORMATION
+   ========================= */
+
+.car-information{
+    position:absolute;
+
+    left:5%;
+    right:5%;
+    bottom:7%;
+
+    z-index:5;
+
+    text-align:center;
+}
+
+.car-status{
+    display:inline-block;
+
+    padding:6px 13px;
+
+    border:1px solid
+        rgba(255,255,255,.3);
+
+    border-radius:20px;
+
+    font-size:7px;
+
+    letter-spacing:2px;
+}
+
+.car-status.locked{
+    opacity:.45;
+}
+
+.car-information h2{
+    margin-top:10px;
+
+    font-size:
+        clamp(22px,5vw,42px);
+
+    font-style:italic;
+
+    letter-spacing:2px;
+}
+
+.car-information p{
+    margin-top:4px;
+
+    font-size:8px;
+
+    letter-spacing:3px;
+
+    opacity:.45;
+}
+
+/* =========================
+   STATS
+   ========================= */
+
+.stats{
+    display:flex;
+
+    justify-content:center;
+
+    gap:clamp(15px,5vw,55px);
+
+    margin-top:17px;
+}
+
+.stats div{
+    min-width:55px;
+}
+
+.stats span{
+    display:block;
+
+    font-size:6px;
+
+    letter-spacing:1px;
+
+    opacity:.4;
+}
+
+.stats strong{
+    font-size:16px;
+
+    display:inline-block;
+
+    margin-top:5px;
+}
+
+.stats small{
+    font-size:6px;
+
+    opacity:.4;
+}
+
+/* =========================
+   SELECT BUTTON
+   ========================= */
+
+#select-car{
+    margin-top:17px;
+
+    width:190px;
+    height:45px;
+
+    border:0;
+
+    border-radius:4px;
+
+    background:white;
+
+    color:#080a0c;
+
+    font-size:9px;
+
+    font-weight:bold;
+
+    letter-spacing:3px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+#select-car:hover{
+    transform:scale(1.04);
+}
+
+#select-car.locked-button{
+    background:#24282b;
+
+    color:white;
+
+    opacity:.5;
+
+    cursor:not-allowed;
+}
+
+/* =========================
+   DOTS
+   ========================= */
+
+.car-dots{
+    position:absolute;
+
+    bottom:3%;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    display:flex;
+
+    gap:7px;
+
+    z-index:8;
+}
+
+.car-dot{
+    width:5px;
+    height:5px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.25);
+}
+
+.car-dot.active{
+    background:white;
+
+    transform:scale(1.5);
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media(max-width:600px){
+
+    .car-showcase{
+        top:20%;
+        height:34%;
+    }
+
+    .car-placeholder{
+        transform:
+            perspective(700px)
+            scale(.78)
+            rotateX(5deg)
+            rotateY(-5deg);
+    }
+
+    .car-information{
+        bottom:8%;
+    }
+
+    .stats{
+        gap:10px;
+    }
+
+    .stats strong{
+        font-size:13px;
+    }
+
+    .car-arrow{
+        width:38px;
+        height:55px;
+
+        font-size:32px;
+    }
+
+}
+
+</style>
+
+
+<script>
+
+/* =========================
+   VELOCITY X CAR DATABASE
+   ========================= */
+
+const vxCars = [
+
+    {
+        name:"TOYOTA GR86",
+        type:"SPORTS COUPE",
+        speed:226,
+        accel:"6.1",
+        handling:72,
+        nitro:45,
+        unlocked:true
+    },
+
+    {
+        name:"MAZDA MX-5",
+        type:"ROADSTER",
+        speed:220,
+        accel:"6.5",
+        handling:78,
+        nitro:43,
+        unlocked:true
+    },
+
+    {
+        name:"HONDA CIVIC TYPE R",
+        type:"SPORTS HATCHBACK",
+        speed:275,
+        accel:"5.4",
+        handling:80,
+        nitro:50,
+        unlocked:false
+    },
+
+    {
+        name:"TOYOTA GR SUPRA",
+        type:"SPORTS COUPE",
+        speed:250,
+        accel:"4.1",
+        handling:82,
+        nitro:58,
+        unlocked:false
+    },
+
+    {
+        name:"NISSAN GT-R",
+        type:"PERFORMANCE COUPE",
+        speed:315,
+        accel:"2.9",
+        handling:88,
+        nitro:72,
+        unlocked:false
+    },
+
+    {
+        name:"PORSCHE 911 TURBO S",
+        type:"SUPERCAR",
+        speed:330,
+        accel:"2.7",
+        handling:94,
+        nitro:78,
+        unlocked:false
+    },
+
+    {
+        name:"LAMBORGHINI HURACÁN",
+        type:"SUPERCAR",
+        speed:325,
+        accel:"2.9",
+        handling:91,
+        nitro:80,
+        unlocked:false
+    },
+
+    {
+        name:"FERRARI SF90",
+        type:"HYBRID SUPERCAR",
+        speed:340,
+        accel:"2.5",
+        handling:95,
+        nitro:86,
+        unlocked:false
+    },
+
+    {
+        name:"MCLAREN SPEEDTAIL",
+        type:"HYPERCAR",
+        speed:403,
+        accel:"3.0",
+        handling:91,
+        nitro:91,
+        unlocked:false
+    },
+
+    {
+        name:"BUGATTI CHIRON SUPER SPORT",
+        type:"HYPERCAR",
+        speed:490,
+        accel:"2.4",
+        handling:90,
+        nitro:97,
+        unlocked:false
+    }
+
+];
+
+
+/* =========================
+   ELEMENTS
+   ========================= */
+
+const carsScreen =
+    document.getElementById("cars-screen");
+
+const carName =
+    document.getElementById("car-name");
+
+const carType =
+    document.getElementById("car-type");
+
+const carSpeed =
+    document.getElementById("car-speed");
+
+const carAccel =
+    document.getElementById("car-accel");
+
+const carHandling =
+    document.getElementById("car-handling");
+
+const carNitro =
+    document.getElementById("car-nitro");
+
+const carStatus =
+    document.getElementById("car-status");
+
+const carNumber =
+    document.getElementById("car-number");
+
+const selectCar =
+    document.getElementById("select-car");
+
+const carDots =
+    document.getElementById("car-dots");
+
+const chosenLocation =
+    document.getElementById("chosen-location");
+
+const previousCar =
+    document.getElementById("car-prev");
+
+const nextCar =
+    document.getElementById("car-next");
+
+
+let currentCar = 0;
+
+
+/* =========================
+   CREATE DOTS
+   ========================= */
+
+vxCars.forEach((car,index)=>{
+
+    const dot =
+        document.createElement("div");
+
+    dot.className = "car-dot";
+
+    if(index === 0){
+        dot.classList.add("active");
+    }
+
+    carDots.appendChild(dot);
+
+});
+
+
+/* =========================
+   SHOW CAR
+   ========================= */
+
+function showCar(index){
+
+    const car = vxCars[index];
+
+    carName.textContent =
+        car.name;
+
+    carType.textContent =
+        car.type;
+
+    carSpeed.textContent =
+        car.speed;
+
+    carAccel.textContent =
+        car.accel;
+
+    carHandling.textContent =
+        car.handling;
+
+    carNitro.textContent =
+        car.nitro;
+
+    carNumber.textContent =
+        String(index + 1).padStart(2,"0")
+        + " / "
+        + String(vxCars.length).padStart(2,"0");
+
+
+    document
+        .querySelectorAll(".car-dot")
+        .forEach((dot,i)=>{
+
+            dot.classList.toggle(
+                "active",
+                i === index
+            );
+
+        });
+
+
+    if(car.unlocked){
+
+        carStatus.textContent =
+            "UNLOCKED";
+
+        carStatus.classList.remove(
+            "locked"
+        );
+
+        selectCar.textContent =
+            "SELECT CAR";
+
+        selectCar.classList.remove(
+            "locked-button"
+        );
+
+        selectCar.disabled = false;
+
+    }else{
+
+        carStatus.textContent =
+            "LOCKED";
+
+        carStatus.classList.add(
+            "locked"
+        );
+
+        selectCar.textContent =
+            "LOCKED";
+
+        selectCar.classList.add(
+            "locked-button"
+        );
+
+        selectCar.disabled = true;
+
+    }
+
+}
+
+
+/* =========================
+   NEXT / PREVIOUS
+   ========================= */
+
+nextCar.addEventListener("click",()=>{
+
+    currentCar++;
+
+    if(currentCar >= vxCars.length){
+        currentCar = 0;
+    }
+
+    showCar(currentCar);
+
+});
+
+
+previousCar.addEventListener("click",()=>{
+
+    currentCar--;
+
+    if(currentCar < 0){
+        currentCar = vxCars.length - 1;
+    }
+
+    showCar(currentCar);
+
+});
+
+
+/* =========================
+   SELECT CAR
+   ========================= */
+
+selectCar.addEventListener("click",()=>{
+
+    const car = vxCars[currentCar];
+
+    if(!car.unlocked) return;
+
+    localStorage.setItem(
+        "vxSelectedCar",
+        car.name
+    );
+
+    alert(
+        car.name + " selected!"
+    );
+
+});
+
+
+/* =========================
+   LOAD LOCATION
+   ========================= */
+
+const savedLocation =
+    localStorage.getItem("vxLocation");
+
+if(savedLocation){
+
+    chosenLocation.textContent =
+        savedLocation.toUpperCase();
+
+}
+
+
+/* =========================
+   INITIAL CAR
+   ========================= */
+
+showCar(0);
 
 </script>
 
+    },600);
+
+});
+
+</script>
+},8000);
+
+</script>
+      
 </body>
 </html>
