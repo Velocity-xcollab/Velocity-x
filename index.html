@@ -1,23 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport"
-content="width=device-width,
-initial-scale=1.0,
-maximum-scale=1.0,
-user-scalable=no">
+      content="width=device-width, initial-scale=1.0">
 
 <title>Velocity X</title>
 
 <style>
-
-/* =========================
-   VELOCITY X — CINEMATIC INTRO
-   ========================= */
-
 *{
     margin:0;
     padding:0;
@@ -28,1174 +18,308 @@ html,body{
     width:100%;
     height:100%;
     overflow:hidden;
-    background:#050607;
     font-family:Arial,Helvetica,sans-serif;
+    background:#090b0d;
 }
 
 /* =========================
-   LANDSCAPE WARNING
+   LOADING SCREEN
    ========================= */
 
-#portrait{
+#loading{
     position:fixed;
     inset:0;
-    z-index:99999;
-
-    display:none;
+    display:flex;
     align-items:center;
     justify-content:center;
-
-    background:#050607;
-    color:white;
-    text-align:center;
-}
-
-.rotate-content{
-    font-size:14px;
-    letter-spacing:5px;
-}
-
-.rotate-small{
-    margin-top:12px;
-    font-size:10px;
-    letter-spacing:3px;
-    color:#9aa4aa;
-}
-
-@media (orientation:portrait){
-
-    #portrait{
-        display:flex;
-    }
-
-    #cinematic{
-        display:none;
-    }
-
-}
-
-/* =========================
-   MAIN CINEMATIC SCREEN
-   ========================= */
-
-#cinematic{
-    position:fixed;
-    inset:0;
     overflow:hidden;
-
-    background:#111;
-}
-
-/* =========================
-   REAL CINEMATIC IMAGE
-   ========================= */
-
-.scene{
-    position:absolute;
-    inset:0;
-
-    background-image:
-        linear-gradient(
-            90deg,
-            rgba(0,0,0,.35),
-            transparent 55%,
-            rgba(0,0,0,.20)
-        ),
-        linear-gradient(
-            180deg,
-            rgba(255,255,255,.05),
-            rgba(0,0,0,.30)
-        ),
-        url("assets/loading-scene.jpg");
-
-    background-size:cover;
-    background-position:center center;
-
-    transform:scale(1.03);
-
-    animation:
-        cinematicZoom 12s
-        ease-out forwards;
-}
-
-/* =========================
-   CINEMATIC LIGHT
-   ========================= */
-
-.daylight{
-    position:absolute;
-    inset:0;
 
     background:
         radial-gradient(
-            ellipse at 72% 18%,
-            rgba(255,255,255,.22),
-            transparent 30%
+            ellipse at 70% 45%,
+            #30363a 0%,
+            #15191c 42%,
+            #050607 100%
         );
-
-    pointer-events:none;
-}
-
-/* =========================
-   BRAND
-   ========================= */
-
-.brand{
-    position:absolute;
-
-    top:7%;
-    left:6%;
 
     color:white;
-
-    font-size:12px;
-    font-weight:bold;
-
-    letter-spacing:8px;
-
-    text-shadow:
-        0 2px 12px rgba(0,0,0,.7);
-
-    z-index:20;
 }
 
-/* =========================
-   GAME TITLE
-   ========================= */
+/* subtle road/light effect */
 
-.game-title{
+#loading::before{
+    content:"";
     position:absolute;
-
-    top:12%;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    text-align:center;
-
-    color:white;
-
-    z-index:20;
-
-    text-shadow:
-        0 4px 25px rgba(0,0,0,.7);
-}
-
-.game-title h1{
-
-    font-size:
-        clamp(36px,6vw,82px);
-
-    font-style:italic;
-
-    font-weight:900;
-
-    letter-spacing:
-        clamp(5px,1vw,14px);
-
-    white-space:nowrap;
-}
-
-.game-title h1 span{
-    color:#d9ecff;
-}
-
-.game-title p{
-
-    margin-top:8px;
-
-    font-size:10px;
-
-    letter-spacing:7px;
-
-    opacity:.85;
-}
-
-/* =========================
-   LOADING PANEL
-   ========================= */
-
-.loading{
-
-    position:absolute;
-
-    left:50%;
-    bottom:7%;
-
-    width:min(400px,48vw);
-
-    transform:translateX(-50%);
-
-    text-align:center;
-
-    color:white;
-
-    z-index:30;
-
-    text-shadow:
-        0 2px 10px rgba(0,0,0,.8);
-}
-
-.loading-label{
-
-    margin-bottom:11px;
-
-    font-size:10px;
-
-    letter-spacing:5px;
-}
-
-.loading-track{
-
-    width:100%;
-    height:3px;
-
-    background:
-        rgba(255,255,255,.28);
-
-    overflow:hidden;
-
-    backdrop-filter:blur(5px);
-}
-
-.loading-progress{
-
-    width:0%;
-    height:100%;
-
-    background:white;
-
-    box-shadow:
-        0 0 18px rgba(255,255,255,.9);
-
-    animation:
-        progress 9s
-        cubic-bezier(.2,.7,.2,1)
-        forwards;
-}
-
-.loading-status{
-
-    margin-top:9px;
-
-    font-size:9px;
-
-    letter-spacing:3px;
-
-    color:#e5edf1;
-}
-
-/* =========================
-   CINEMATIC VIGNETTE
-   ========================= */
-
-.lens{
-
-    position:absolute;
-    inset:0;
-
-    pointer-events:none;
-
-    background:
-
-        radial-gradient(
-            ellipse at center,
-            transparent 45%,
-            rgba(0,0,0,.25) 75%,
-            rgba(0,0,0,.55) 100%
-        );
-
-    z-index:15;
-}
-
-/* =========================
-   FADE TO GAME
-   ========================= */
-
-.fade{
-
-    position:absolute;
-    inset:0;
-
-    background:#030405;
-
-    opacity:0;
-
-    pointer-events:none;
-
-    animation:
-        fadeIn 1.5s ease 9s forwards;
-
-    z-index:50;
-}
-
-/* =========================
-   ANIMATIONS
-   ========================= */
-
-@keyframes progress{
-
-    0%{
-        width:0%;
-    }
-
-    20%{
-        width:18%;
-    }
-
-    45%{
-        width:43%;
-    }
-
-    70%{
-        width:68%;
-    }
-
-    88%{
-        width:87%;
-    }
-
-    100%{
-        width:100%;
-    }
-}
-
-@keyframes fadeIn{
-
-    to{
-        opacity:1;
-    }
-}
-
-@keyframes cinematicZoom{
-
-    from{
-        transform:scale(1.03);
-    }
-
-    to{
-        transform:scale(1.08);
-    }
-}
-
-</style>
-
-</head>
-
-<body>
-
-<!-- =========================
-     PORTRAIT WARNING
-     ========================= -->
-
-<div id="portrait">
-
-    <div class="rotate-content">
-
-        LANDSCAPE MODE
-
-        <div class="rotate-small">
-            ROTATE YOUR DEVICE TO START VELOCITY X
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================
-     CINEMATIC INTRO
-     ========================= -->
-
-<div id="cinematic">
-
-    <!-- SCENE -->
-
-    <div class="scene"></div>
-
-    <div class="daylight"></div>
-
-
-    <!-- STREET -->
-
-    <div class="street"></div>
-
-
-    <!-- BACKGROUND PEOPLE -->
-
-    <div class="background-person person1"></div>
-    <div class="background-person person2"></div>
-    <div class="background-person person3"></div>
-    <div class="background-person person4"></div>
-
-
-    <!-- LARGE CAR -->
-
-    <div class="car">
-
-        <div class="car-roof"></div>
-
-        <div class="car-glass"></div>
-
-        <div class="car-body"></div>
-
-        <div class="car-light"></div>
-
-        <div class="wheel wheel-front"></div>
-        <div class="wheel wheel-back"></div>
-
-    </div>
-
-
-    <!-- WOMAN -->
-
-    <div class="woman">
-
-        <div class="woman-hair"></div>
-
-        <div class="woman-head"></div>
-
-        <div class="woman-body"></div>
-
-    </div>
-
-
-    <!-- BRAND -->
-
-    <div class="brand">
-        VX STUDIOS
-    </div>
-
-
-    <!-- GAME TITLE -->
-
-    <div class="game-title">
-
-        <h1>
-            VELOCITY <span>X</span>
-        </h1>
-
-        <p>
-            THE RACE BEGINS
-        </p>
-
-    </div>
-
-
-    <!-- LOADING -->
-
-    <div class="loading">
-
-        <div class="loading-label">
-            LOADING
-        </div>
-
-        <div class="loading-track">
-
-            <div class="loading-progress"></div>
-
-        </div>
-
-        <div class="loading-status">
-            PREPARING YOUR RIDE
-        </div>
-
-    </div>
-
-
-    <div class="lens"></div>
-
-    <div class="fade"></div>
-
-</div>
-
-   <!-- =========================
-     VELOCITY X GAME LAYER
-     ========================= -->
-
-<div id="vx-game">
-
-    <div class="vx-road">
-        <div class="vx-road-line"></div>
-    </div>
-
-    <div class="vx-car">
-        <div class="vx-car-roof"></div>
-        <div class="vx-car-glass"></div>
-        <div class="vx-wheel vx-wheel-left"></div>
-        <div class="vx-wheel vx-wheel-right"></div>
-    </div>
-
-    <div class="vx-hud">
-
-        <div class="vx-logo">
-            VX STUDIOS
-        </div>
-
-        <div class="vx-position">
-            <strong>1</strong>
-            <span>POSITION</span>
-        </div>
-
-        <div class="vx-speed">
-            <strong id="vxSpeed">0</strong>
-            <span>KM/H</span>
-        </div>
-
-        <button id="vxNitro">
-            NITRO
-            <small>HOLD</small>
-        </button>
-
-        <div class="vx-controls">
-            <button id="vxLeft">◀</button>
-            <button id="vxRight">▶</button>
-        </div>
-
-    </div>
-
-    <div id="vxCountdown">3</div>
-
-</div>
-
-
-<style>
-
-/* =========================
-   GAME LAYER
-   ========================= */
-
-#vx-game{
-    position:fixed;
-    inset:0;
-
-    display:none;
-
-    overflow:hidden;
-
-    background:
-        linear-gradient(
-            180deg,
-            #72b9e8 0%,
-            #d9edf7 43%,
-            #62676a 44%,
-            #202326 100%
-        );
-
-    z-index:1000;
-}
-
-/* =========================
-   ROAD
-   ========================= */
-
-.vx-road{
-    position:absolute;
-
-    width:150%;
-    height:85%;
-
-    left:-25%;
-    bottom:-32%;
-
-    transform:
-        perspective(500px)
-        rotateX(55deg);
-
-    background:
-        linear-gradient(
-            90deg,
-            #1b1e20,
-            #363a3d 50%,
-            #1b1e20
-        );
-}
-
-.vx-road-line{
-    position:absolute;
-
-    left:50%;
-    top:0;
-
-    width:7px;
-    height:100%;
-
-    transform:translateX(-50%);
+    width:160%;
+    height:45%;
+    bottom:-20%;
+    left:-30%;
+
+    transform:perspective(500px)
+              rotateX(55deg);
 
     background:
         repeating-linear-gradient(
-            180deg,
-            white 0 70px,
-            transparent 70px 140px
-        );
-}
-
-/* =========================
-   PLAYER CAR
-   ========================= */
-
-.vx-car{
-    position:absolute;
-
-    left:50%;
-    bottom:12%;
-
-    width:270px;
-    height:140px;
-
-    transform:translateX(-50%);
-
-    z-index:5;
-
-    transition:
-        transform .08s linear;
-}
-
-.vx-car:before{
-    content:"";
-
-    position:absolute;
-
-    left:10px;
-    bottom:25px;
-
-    width:250px;
-    height:75px;
-
-    border-radius:60px 55px 20px 20px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #f4f6f7,
-            #9ba4aa 30%,
-            #30353a 65%,
-            #08090a
+            90deg,
+            transparent 0 90px,
+            rgba(255,255,255,.025) 90px 92px
         );
 
-    box-shadow:
-        0 20px 30px
-        rgba(0,0,0,.55);
+    opacity:.8;
 }
 
-.vx-car-roof{
+/* cinematic glow */
+
+.glow{
     position:absolute;
-
-    left:72px;
-    top:17px;
-
-    width:130px;
-    height:60px;
-
-    clip-path:
-        polygon(
-            8% 100%,
-            25% 0,
-            75% 0,
-            94% 100%
-        );
-
-    background:#182126;
-}
-
-.vx-car-glass{
-    position:absolute;
-
-    left:85px;
-    top:24px;
-
-    width:103px;
-    height:43px;
-
-    clip-path:
-        polygon(
-            10% 100%,
-            22% 0,
-            72% 0,
-            92% 100%
-        );
-
-    background:
-        linear-gradient(
-            135deg,
-            #9fc6d5,
-            #263b45,
-            #05090b
-        );
-}
-
-.vx-wheel{
-    position:absolute;
-
-    bottom:7px;
-
-    width:55px;
-    height:55px;
+    width:500px;
+    height:500px;
 
     border-radius:50%;
 
     background:
         radial-gradient(
             circle,
-            #777f84 0 14%,
-            #202427 15% 40%,
-            #050607 42% 70%,
-            #17191b 72%
+            rgba(255,255,255,.12),
+            transparent 65%
         );
 
-    border:5px solid #08090a;
-}
-
-.vx-wheel-left{
-    left:35px;
-}
-
-.vx-wheel-right{
-    right:35px;
+    filter:blur(20px);
 }
 
 /* =========================
-   HUD
+   BRAND
    ========================= */
 
-.vx-hud{
-    position:absolute;
-    inset:0;
-
-    color:white;
-
-    pointer-events:none;
-
-    z-index:20;
-
-    text-shadow:
-        0 2px 8px rgba(0,0,0,.8);
-}
-
-.vx-logo{
-    position:absolute;
-
-    top:5%;
-    left:5%;
-
-    font-size:12px;
-
-    font-weight:bold;
-
-    letter-spacing:6px;
-}
-
-.vx-position{
-    position:absolute;
-
-    top:5%;
-    right:5%;
-
-    text-align:right;
-}
-
-.vx-position strong{
-    display:block;
-
-    font-size:42px;
-
-    font-style:italic;
-}
-
-.vx-position span{
-    font-size:8px;
-
-    letter-spacing:3px;
-}
-
-/* =========================
-   SPEED
-   ========================= */
-
-.vx-speed{
-    position:absolute;
-
-    right:5%;
-    bottom:7%;
-
-    width:120px;
-    height:120px;
-
-    border:2px solid
-        rgba(255,255,255,.6);
-
-    border-radius:50%;
-
-    background:
-        rgba(0,0,0,.45);
+.content{
+    position:relative;
+    z-index:5;
 
     text-align:center;
 
-    padding-top:32px;
+    animation:
+        appear 1.8s ease-out forwards;
 }
 
-.vx-speed strong{
-    display:block;
-
-    font-size:32px;
-
-    font-style:italic;
-}
-
-.vx-speed span{
-    font-size:8px;
-
-    letter-spacing:3px;
-}
-
-/* =========================
-   NITRO
-   ========================= */
-
-#vxNitro{
-    position:absolute;
-
-    left:5%;
-    bottom:7%;
-
-    width:100px;
-    height:100px;
-
-    border-radius:50%;
-
-    border:2px solid
-        rgba(255,255,255,.6);
-
-    background:
-        rgba(0,0,0,.45);
-
-    color:white;
-
+.studios{
+    font-size:11px;
     font-weight:bold;
+    letter-spacing:8px;
 
-    letter-spacing:2px;
+    opacity:.65;
 
-    pointer-events:auto;
-
-    touch-action:none;
+    margin-bottom:22px;
 }
 
-#vxNitro small{
-    display:block;
+.title{
+    font-size:
+        clamp(52px,12vw,110px);
 
-    margin-top:6px;
+    font-weight:900;
+    font-style:italic;
 
-    font-size:7px;
+    letter-spacing:8px;
 
-    opacity:.6;
+    line-height:.9;
+
+    text-shadow:
+        0 8px 30px rgba(0,0,0,.8);
+}
+
+.subtitle{
+    margin-top:18px;
+
+    font-size:10px;
+    letter-spacing:6px;
+
+    opacity:.55;
 }
 
 /* =========================
-   STEERING
+   LOADING BAR
    ========================= */
 
-.vx-controls{
+.loading-box{
     position:absolute;
 
+    bottom:9%;
     left:50%;
-    bottom:7%;
 
     transform:translateX(-50%);
 
+    width:min(420px,70vw);
+
+    z-index:10;
+}
+
+.loading-text{
     display:flex;
+    justify-content:space-between;
 
-    gap:12px;
+    margin-bottom:9px;
 
-    pointer-events:auto;
+    font-size:8px;
+    letter-spacing:3px;
+
+    opacity:.55;
 }
 
-.vx-controls button{
-    width:62px;
-    height:62px;
+.bar{
+    width:100%;
+    height:2px;
 
-    border-radius:50%;
+    background:rgba(255,255,255,.18);
 
-    border:2px solid
-        rgba(255,255,255,.5);
-
-    background:
-        rgba(0,0,0,.4);
-
-    color:white;
-
-    font-size:22px;
-
-    touch-action:none;
+    overflow:hidden;
 }
 
-/* =========================
-   COUNTDOWN
-   ========================= */
+.progress{
+    height:100%;
+    width:0%;
 
-#vxCountdown{
-    position:absolute;
+    background:white;
 
-    left:50%;
-    top:45%;
-
-    transform:
-        translate(-50%,-50%);
-
-    color:white;
-
-    font-size:80px;
-
-    font-weight:900;
-
-    font-style:italic;
-
-    text-shadow:
-        0 5px 25px black;
-
-    z-index:50;
+    animation:
+        loadingProgress 8s
+        linear forwards;
 }
 
 /* =========================
-   PORTRAIT
+   ANIMATIONS
    ========================= */
 
-@media (orientation:portrait){
+@keyframes loadingProgress{
 
-    #vx-game{
-        display:none !important;
+    from{
+        width:0%;
     }
 
+    to{
+        width:100%;
+    }
 }
 
-</style>
+@keyframes appear{
 
+    from{
+        opacity:0;
+        transform:scale(1.06);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media(max-width:600px){
+
+    .title{
+        letter-spacing:5px;
+    }
+
+    .studios{
+        letter-spacing:5px;
+    }
+
+    .subtitle{
+        letter-spacing:4px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     VELOCITY X LOADING
+     ========================= -->
+
+<section id="loading">
+
+    <div class="glow"></div>
+
+    <div class="content">
+
+        <div class="studios">
+            VX STUDIOS
+        </div>
+
+        <div class="title">
+            VELOCITY X
+        </div>
+
+        <div class="subtitle">
+            DRIVE BEYOND LIMITS
+        </div>
+
+    </div>
+
+    <div class="loading-box">
+
+        <div class="loading-text">
+            <span>LOADING</span>
+            <span id="percent">0%</span>
+        </div>
+
+        <div class="bar">
+            <div class="progress"></div>
+        </div>
+
+    </div>
+
+</section>
 
 <script>
 
-/* =========================
-   VELOCITY X GAME LOGIC
-   ========================= */
+let percent = 0;
 
-const vxGame =
-    document.getElementById("vx-game");
+const percentText =
+    document.getElementById("percent");
 
-const vxCar =
-    document.querySelector(".vx-car");
+const loading =
+    document.getElementById("loading");
 
-const vxSpeed =
-    document.getElementById("vxSpeed");
+/* loading counter */
 
-const vxNitro =
-    document.getElementById("vxNitro");
+const counter =
+    setInterval(() => {
 
-const vxCountdown =
-    document.getElementById("vxCountdown");
+        percent++;
 
-const vxLeft =
-    document.getElementById("vxLeft");
+        percentText.textContent =
+            percent + "%";
 
-const vxRight =
-    document.getElementById("vxRight");
+        if(percent >= 100){
 
+            clearInterval(counter);
 
-let vxStarted = false;
+        }
 
-let vxSpeedValue = 0;
-
-let vxCarX = 0;
-
-let vxSteering = 0;
-
-let vxNitroActive = false;
+    },80);
 
 
-/* =========================
-   START GAME
-   ========================= */
+/* after exactly 8 seconds */
 
 setTimeout(() => {
 
-    vxGame.style.display = "block";
+    loading.style.transition =
+        "opacity 1s ease";
 
-    let number = 3;
+    loading.style.opacity = "0";
 
-    vxCountdown.textContent = number;
+    /*
+      CODE 2 WILL APPEAR HERE
+      AFTER WE BUILD IT.
+    */
 
-    const countdownTimer =
-        setInterval(() => {
-
-            number--;
-
-            if(number > 0){
-
-                vxCountdown.textContent =
-                    number;
-
-            }else{
-
-                vxCountdown.textContent =
-                    "GO!";
-
-                vxStarted = true;
-
-                setTimeout(() => {
-
-                    vxCountdown.style.display =
-                        "none";
-
-                },700);
-
-                clearInterval(
-                    countdownTimer
-                );
-            }
-
-        },1000);
-
-},9000);
-
-
-/* =========================
-   STEERING
-   ========================= */
-
-function steerLeft(e){
-
-    e.preventDefault();
-
-    vxSteering = -1;
-}
-
-function steerRight(e){
-
-    e.preventDefault();
-
-    vxSteering = 1;
-}
-
-function stopSteering(){
-
-    vxSteering = 0;
-}
-
-
-vxLeft.addEventListener(
-    "pointerdown",
-    steerLeft
-);
-
-vxRight.addEventListener(
-    "pointerdown",
-    steerRight
-);
-
-vxLeft.addEventListener(
-    "pointerup",
-    stopSteering
-);
-
-vxRight.addEventListener(
-    "pointerup",
-    stopSteering
-);
-
-vxLeft.addEventListener(
-    "pointercancel",
-    stopSteering
-);
-
-vxRight.addEventListener(
-    "pointercancel",
-    stopSteering
-);
-
-
-/* =========================
-   NITRO
-   ========================= */
-
-vxNitro.addEventListener(
-    "pointerdown",
-    function(e){
-
-        e.preventDefault();
-
-        vxNitroActive = true;
-
-    }
-);
-
-vxNitro.addEventListener(
-    "pointerup",
-    function(){
-
-        vxNitroActive = false;
-
-    }
-);
-
-vxNitro.addEventListener(
-    "pointercancel",
-    function(){
-
-        vxNitroActive = false;
-
-    }
-);
-
-
-/* =========================
-   GAME LOOP
-   ========================= */
-
-function vxLoop(){
-
-    if(vxStarted){
-
-        if(vxNitroActive){
-
-            vxSpeedValue += 1.4;
-
-        }else{
-
-            vxSpeedValue += .25;
-
-        }
-
-        if(vxSpeedValue > 320){
-
-            vxSpeedValue = 320;
-
-        }
-
-
-        vxCarX +=
-            vxSteering * 4;
-
-
-        if(vxCarX > 110)
-            vxCarX = 110;
-
-        if(vxCarX < -110)
-            vxCarX = -110;
-
-
-        vxCar.style.transform =
-            "translateX(calc(-50% + "
-            + vxCarX +
-            "px))";
-
-
-        vxSpeed.textContent =
-            Math.floor(vxSpeedValue);
-
-    }
-
-    requestAnimationFrame(vxLoop);
-}
-
-vxLoop();
+},8000);
 
 </script>
+
 </body>
 </html>
