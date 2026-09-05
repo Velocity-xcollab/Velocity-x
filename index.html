@@ -509,5 +509,693 @@ html,body{
 
 </div>
 
+   <!-- =========================
+     VELOCITY X GAME LAYER
+     ========================= -->
+
+<div id="vx-game">
+
+    <div class="vx-road">
+        <div class="vx-road-line"></div>
+    </div>
+
+    <div class="vx-car">
+        <div class="vx-car-roof"></div>
+        <div class="vx-car-glass"></div>
+        <div class="vx-wheel vx-wheel-left"></div>
+        <div class="vx-wheel vx-wheel-right"></div>
+    </div>
+
+    <div class="vx-hud">
+
+        <div class="vx-logo">
+            VX STUDIOS
+        </div>
+
+        <div class="vx-position">
+            <strong>1</strong>
+            <span>POSITION</span>
+        </div>
+
+        <div class="vx-speed">
+            <strong id="vxSpeed">0</strong>
+            <span>KM/H</span>
+        </div>
+
+        <button id="vxNitro">
+            NITRO
+            <small>HOLD</small>
+        </button>
+
+        <div class="vx-controls">
+            <button id="vxLeft">◀</button>
+            <button id="vxRight">▶</button>
+        </div>
+
+    </div>
+
+    <div id="vxCountdown">3</div>
+
+</div>
+
+
+<style>
+
+/* =========================
+   GAME LAYER
+   ========================= */
+
+#vx-game{
+    position:fixed;
+    inset:0;
+
+    display:none;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            #72b9e8 0%,
+            #d9edf7 43%,
+            #62676a 44%,
+            #202326 100%
+        );
+
+    z-index:1000;
+}
+
+/* =========================
+   ROAD
+   ========================= */
+
+.vx-road{
+    position:absolute;
+
+    width:150%;
+    height:85%;
+
+    left:-25%;
+    bottom:-32%;
+
+    transform:
+        perspective(500px)
+        rotateX(55deg);
+
+    background:
+        linear-gradient(
+            90deg,
+            #1b1e20,
+            #363a3d 50%,
+            #1b1e20
+        );
+}
+
+.vx-road-line{
+    position:absolute;
+
+    left:50%;
+    top:0;
+
+    width:7px;
+    height:100%;
+
+    transform:translateX(-50%);
+
+    background:
+        repeating-linear-gradient(
+            180deg,
+            white 0 70px,
+            transparent 70px 140px
+        );
+}
+
+/* =========================
+   PLAYER CAR
+   ========================= */
+
+.vx-car{
+    position:absolute;
+
+    left:50%;
+    bottom:12%;
+
+    width:270px;
+    height:140px;
+
+    transform:translateX(-50%);
+
+    z-index:5;
+
+    transition:
+        transform .08s linear;
+}
+
+.vx-car:before{
+    content:"";
+
+    position:absolute;
+
+    left:10px;
+    bottom:25px;
+
+    width:250px;
+    height:75px;
+
+    border-radius:60px 55px 20px 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f4f6f7,
+            #9ba4aa 30%,
+            #30353a 65%,
+            #08090a
+        );
+
+    box-shadow:
+        0 20px 30px
+        rgba(0,0,0,.55);
+}
+
+.vx-car-roof{
+    position:absolute;
+
+    left:72px;
+    top:17px;
+
+    width:130px;
+    height:60px;
+
+    clip-path:
+        polygon(
+            8% 100%,
+            25% 0,
+            75% 0,
+            94% 100%
+        );
+
+    background:#182126;
+}
+
+.vx-car-glass{
+    position:absolute;
+
+    left:85px;
+    top:24px;
+
+    width:103px;
+    height:43px;
+
+    clip-path:
+        polygon(
+            10% 100%,
+            22% 0,
+            72% 0,
+            92% 100%
+        );
+
+    background:
+        linear-gradient(
+            135deg,
+            #9fc6d5,
+            #263b45,
+            #05090b
+        );
+}
+
+.vx-wheel{
+    position:absolute;
+
+    bottom:7px;
+
+    width:55px;
+    height:55px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #777f84 0 14%,
+            #202427 15% 40%,
+            #050607 42% 70%,
+            #17191b 72%
+        );
+
+    border:5px solid #08090a;
+}
+
+.vx-wheel-left{
+    left:35px;
+}
+
+.vx-wheel-right{
+    right:35px;
+}
+
+/* =========================
+   HUD
+   ========================= */
+
+.vx-hud{
+    position:absolute;
+    inset:0;
+
+    color:white;
+
+    pointer-events:none;
+
+    z-index:20;
+
+    text-shadow:
+        0 2px 8px rgba(0,0,0,.8);
+}
+
+.vx-logo{
+    position:absolute;
+
+    top:5%;
+    left:5%;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    letter-spacing:6px;
+}
+
+.vx-position{
+    position:absolute;
+
+    top:5%;
+    right:5%;
+
+    text-align:right;
+}
+
+.vx-position strong{
+    display:block;
+
+    font-size:42px;
+
+    font-style:italic;
+}
+
+.vx-position span{
+    font-size:8px;
+
+    letter-spacing:3px;
+}
+
+/* =========================
+   SPEED
+   ========================= */
+
+.vx-speed{
+    position:absolute;
+
+    right:5%;
+    bottom:7%;
+
+    width:120px;
+    height:120px;
+
+    border:2px solid
+        rgba(255,255,255,.6);
+
+    border-radius:50%;
+
+    background:
+        rgba(0,0,0,.45);
+
+    text-align:center;
+
+    padding-top:32px;
+}
+
+.vx-speed strong{
+    display:block;
+
+    font-size:32px;
+
+    font-style:italic;
+}
+
+.vx-speed span{
+    font-size:8px;
+
+    letter-spacing:3px;
+}
+
+/* =========================
+   NITRO
+   ========================= */
+
+#vxNitro{
+    position:absolute;
+
+    left:5%;
+    bottom:7%;
+
+    width:100px;
+    height:100px;
+
+    border-radius:50%;
+
+    border:2px solid
+        rgba(255,255,255,.6);
+
+    background:
+        rgba(0,0,0,.45);
+
+    color:white;
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    pointer-events:auto;
+
+    touch-action:none;
+}
+
+#vxNitro small{
+    display:block;
+
+    margin-top:6px;
+
+    font-size:7px;
+
+    opacity:.6;
+}
+
+/* =========================
+   STEERING
+   ========================= */
+
+.vx-controls{
+    position:absolute;
+
+    left:50%;
+    bottom:7%;
+
+    transform:translateX(-50%);
+
+    display:flex;
+
+    gap:12px;
+
+    pointer-events:auto;
+}
+
+.vx-controls button{
+    width:62px;
+    height:62px;
+
+    border-radius:50%;
+
+    border:2px solid
+        rgba(255,255,255,.5);
+
+    background:
+        rgba(0,0,0,.4);
+
+    color:white;
+
+    font-size:22px;
+
+    touch-action:none;
+}
+
+/* =========================
+   COUNTDOWN
+   ========================= */
+
+#vxCountdown{
+    position:absolute;
+
+    left:50%;
+    top:45%;
+
+    transform:
+        translate(-50%,-50%);
+
+    color:white;
+
+    font-size:80px;
+
+    font-weight:900;
+
+    font-style:italic;
+
+    text-shadow:
+        0 5px 25px black;
+
+    z-index:50;
+}
+
+/* =========================
+   PORTRAIT
+   ========================= */
+
+@media (orientation:portrait){
+
+    #vx-game{
+        display:none !important;
+    }
+
+}
+
+</style>
+
+
+<script>
+
+/* =========================
+   VELOCITY X GAME LOGIC
+   ========================= */
+
+const vxGame =
+    document.getElementById("vx-game");
+
+const vxCar =
+    document.querySelector(".vx-car");
+
+const vxSpeed =
+    document.getElementById("vxSpeed");
+
+const vxNitro =
+    document.getElementById("vxNitro");
+
+const vxCountdown =
+    document.getElementById("vxCountdown");
+
+const vxLeft =
+    document.getElementById("vxLeft");
+
+const vxRight =
+    document.getElementById("vxRight");
+
+
+let vxStarted = false;
+
+let vxSpeedValue = 0;
+
+let vxCarX = 0;
+
+let vxSteering = 0;
+
+let vxNitroActive = false;
+
+
+/* =========================
+   START GAME
+   ========================= */
+
+setTimeout(() => {
+
+    vxGame.style.display = "block";
+
+    let number = 3;
+
+    vxCountdown.textContent = number;
+
+    const countdownTimer =
+        setInterval(() => {
+
+            number--;
+
+            if(number > 0){
+
+                vxCountdown.textContent =
+                    number;
+
+            }else{
+
+                vxCountdown.textContent =
+                    "GO!";
+
+                vxStarted = true;
+
+                setTimeout(() => {
+
+                    vxCountdown.style.display =
+                        "none";
+
+                },700);
+
+                clearInterval(
+                    countdownTimer
+                );
+            }
+
+        },1000);
+
+},9000);
+
+
+/* =========================
+   STEERING
+   ========================= */
+
+function steerLeft(e){
+
+    e.preventDefault();
+
+    vxSteering = -1;
+}
+
+function steerRight(e){
+
+    e.preventDefault();
+
+    vxSteering = 1;
+}
+
+function stopSteering(){
+
+    vxSteering = 0;
+}
+
+
+vxLeft.addEventListener(
+    "pointerdown",
+    steerLeft
+);
+
+vxRight.addEventListener(
+    "pointerdown",
+    steerRight
+);
+
+vxLeft.addEventListener(
+    "pointerup",
+    stopSteering
+);
+
+vxRight.addEventListener(
+    "pointerup",
+    stopSteering
+);
+
+vxLeft.addEventListener(
+    "pointercancel",
+    stopSteering
+);
+
+vxRight.addEventListener(
+    "pointercancel",
+    stopSteering
+);
+
+
+/* =========================
+   NITRO
+   ========================= */
+
+vxNitro.addEventListener(
+    "pointerdown",
+    function(e){
+
+        e.preventDefault();
+
+        vxNitroActive = true;
+
+    }
+);
+
+vxNitro.addEventListener(
+    "pointerup",
+    function(){
+
+        vxNitroActive = false;
+
+    }
+);
+
+vxNitro.addEventListener(
+    "pointercancel",
+    function(){
+
+        vxNitroActive = false;
+
+    }
+);
+
+
+/* =========================
+   GAME LOOP
+   ========================= */
+
+function vxLoop(){
+
+    if(vxStarted){
+
+        if(vxNitroActive){
+
+            vxSpeedValue += 1.4;
+
+        }else{
+
+            vxSpeedValue += .25;
+
+        }
+
+        if(vxSpeedValue > 320){
+
+            vxSpeedValue = 320;
+
+        }
+
+
+        vxCarX +=
+            vxSteering * 4;
+
+
+        if(vxCarX > 110)
+            vxCarX = 110;
+
+        if(vxCarX < -110)
+            vxCarX = -110;
+
+
+        vxCar.style.transform =
+            "translateX(calc(-50% + "
+            + vxCarX +
+            "px))";
+
+
+        vxSpeed.textContent =
+            Math.floor(vxSpeedValue);
+
+    }
+
+    requestAnimationFrame(vxLoop);
+}
+
+vxLoop();
+
+</script>
 </body>
 </html>
